@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,16 +8,31 @@ using System.Threading.Tasks;
 
 namespace bilibili2
 {
+    //Code
+    public class CodeModel
+    {
+        [JsonProperty("code")]
+        public int Code { get; set; }
+        [JsonProperty("data")]
+        public object Data { get; set; }
+    }
     //Banner
     public class BannerModel
     {
-        public int results { get; set; }
-        public object data { get; set; }
-        public string title { get; set; }
-        public int type { get; set; }
-        public string image { get; set; }
-        public string value { get; set; }
-
+        [JsonProperty("title")]
+        public string Title { get; set; }
+        [JsonProperty("value")]
+        public string Value { get; set; }
+        [JsonProperty("image")]
+        public string Image { get; set; }
+        [JsonProperty("type")]
+        public int Type { get; set; }
+        [JsonProperty("weight")]
+        public int Weight { get; set; }
+        [JsonProperty("remark")]
+        public string Remark { get; set; }
+        [JsonProperty("hash")]
+        public string Hash { get; set; }
     }
     //视频详细信息
     public class VideoInfoModel

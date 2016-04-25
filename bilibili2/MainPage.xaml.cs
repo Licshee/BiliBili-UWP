@@ -655,9 +655,9 @@ namespace bilibili2
         {
             try
             {
-                BannerModel model = JsonConvert.DeserializeObject<BannerModel>(results);
-                List<BannerModel> ban = JsonConvert.DeserializeObject<List<BannerModel>>(model.data.ToString());
-                var li = from a in ban where a.type != 1 select a;
+                var model = JsonConvert.DeserializeObject<CodeModel>(results);
+                var ban = JsonConvert.DeserializeObject<List<BannerModel>>(model.Data.ToString());
+                var li = from a in ban where a.Type != 1 select a;
                 home_flipView.ItemsSource = li;
                 fvLeft.ItemsSource = li;
                 fvRight.ItemsSource = li;
@@ -1036,7 +1036,7 @@ namespace bilibili2
                 statusBar.BackgroundOpacity = 100;
             }
             //电脑标题栏颜色
-            var titleBar = Windows.UI.ViewManagement.ApplicationView.GetForCurrentView().TitleBar;
+            var titleBar = ApplicationView.GetForCurrentView().TitleBar;
             titleBar.BackgroundColor = ((SolidColorBrush)top_grid.Background).Color;
             titleBar.ForegroundColor = Color.FromArgb(255, 254, 254, 254);//Colors.White纯白用不了。。。
             titleBar.ButtonHoverBackgroundColor = ((SolidColorBrush)menu_DarkBack.Background).Color;
@@ -1109,14 +1109,14 @@ namespace bilibili2
         //Banner点击
         private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
         {
-            if (((BannerModel)home_flipView.SelectedItem).type == 2)
+            if (((BannerModel)home_flipView.SelectedItem).Type == 2)
             {
-                infoFrame.Navigate(typeof(WebViewPage), ((BannerModel)home_flipView.SelectedItem).value);
+                infoFrame.Navigate(typeof(WebViewPage), ((BannerModel)home_flipView.SelectedItem).Value);
                 //jinr.From = this.ActualWidth;
             }
-            if (((BannerModel)home_flipView.SelectedItem).type == 3)
+            if (((BannerModel)home_flipView.SelectedItem).Type == 3)
             {
-                infoFrame.Navigate(typeof(BanInfoPage), ((BannerModel)home_flipView.SelectedItem).value);
+                infoFrame.Navigate(typeof(BanInfoPage), ((BannerModel)home_flipView.SelectedItem).Value);
                 //KeyValuePair<string, bool> info = new KeyValuePair<string, bool>(((BannerModel)home_flipView.SelectedItem).value, true);
                 //this.Frame.Navigate(typeof(BangumiInfoPage), info);
                 // this.Frame.Navigate(typeof(WebViewPage), ((BannerModel)home_flipView.SelectedItem).value);
