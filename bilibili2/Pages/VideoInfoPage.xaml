@@ -126,29 +126,29 @@
                                                 <StackPanel>
                                                     <Ellipse Width="32" Height="32" Stroke="#7FC1C1C1" HorizontalAlignment="Left">
                                                         <Ellipse.Fill>
-                                                            <ImageBrush ImageSource="{Binding avatar}"/>
+                                                            <ImageBrush ImageSource="{Binding Avatar}"/>
                                                         </Ellipse.Fill>
                                                     </Ellipse>
                                                     <Image Source="{Binding LV}" Width="24" Margin="0 2"></Image>
                                                 </StackPanel>
                                             </HyperlinkButton>
-                                            <TextBlock Margin="5,0" Text="{Binding uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
+                                            <TextBlock Margin="5,0" Text="{Binding Uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top">
                                                 <StackPanel Orientation="Horizontal"  Margin="5,0">
                                                     <TextBlock Text="#" Foreground="#FFB6B6B6" ></TextBlock>
-                                                    <TextBlock Text="{Binding floor}"  Foreground="#FFB6B6B6" ></TextBlock>
+                                                    <TextBlock Text="{Binding Floor}"  Foreground="#FFB6B6B6" ></TextBlock>
                                                     <TextBlock Text="{Binding Plat}"  Foreground="#FFB6B6B6" Margin="5,0"></TextBlock>
                                                 </StackPanel>
-                                                <TextBlock Text="{Binding time}" Foreground="#FFB6B6B6"></TextBlock>
+                                                <TextBlock Text="{Binding Time}" Foreground="#FFB6B6B6"></TextBlock>
                                             </StackPanel>
-                                            <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding message}" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
                                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3">
                                                 <!--<SymbolIcon Symbol="Message" Foreground="#FF666666" />-->
                                                 <!--<SymbolIcon Symbol="Like" Foreground="#FF666666" />-->
                                                 <HyperlinkButton  x:Name="btn_Zan" HorizontalAlignment="Left" Click="btn_Zan_Click">
                                                     <TextBlock Text="赞同" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                 </HyperlinkButton>
-                                                <TextBlock Text="{Binding like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
+                                                <TextBlock Text="{Binding Like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
                                             </StackPanel>
                                         </Grid>
                                     </DataTemplate>
@@ -396,33 +396,33 @@
                                                     <StackPanel>
                                                         <Ellipse Width="32" Height="32" Stroke="#7FC1C1C1" HorizontalAlignment="Left">
                                                             <Ellipse.Fill>
-                                                                <ImageBrush ImageSource="{Binding avatar}"/>
+                                                                <ImageBrush ImageSource="{Binding Avatar}"/>
                                                             </Ellipse.Fill>
                                                         </Ellipse>
                                                         <Image Source="{Binding LV}" Width="24" Margin="0 2"></Image>
                                                     </StackPanel>
                                                 </HyperlinkButton>
-                                                <TextBlock Margin="5,0" Text="{Binding uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
+                                                <TextBlock Margin="5,0" Text="{Binding Uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
                                                 <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top">
                                                     <StackPanel Orientation="Horizontal"  Margin="5,0">
                                                         <TextBlock Text="#" Foreground="#FFB6B6B6" ></TextBlock>
-                                                        <TextBlock Text="{Binding floor}"  Foreground="#FFB6B6B6" ></TextBlock>
+                                                        <TextBlock Text="{Binding Floor}"  Foreground="#FFB6B6B6" ></TextBlock>
                                                         <TextBlock Text="{Binding Plat}"  Foreground="#FFB6B6B6" Margin="5,0"></TextBlock>
                                                     </StackPanel>
-                                                    <TextBlock Text="{Binding time}" Foreground="#FFB6B6B6"></TextBlock>
+                                                    <TextBlock Text="{Binding Time}" Foreground="#FFB6B6B6"></TextBlock>
                                                 </StackPanel>
-                                                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding message}" TextWrapping="Wrap"></TextBlock>
+                                                <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
                                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3">
                                                     <!--<SymbolIcon Symbol="Message" Foreground="#FF666666" />-->
                                                     <HyperlinkButton  HorizontalAlignment="Left" >
                                                         <TextBlock Text="回复" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                     </HyperlinkButton>
-                                                    <TextBlock Text="{Binding rcount}" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
+                                                    <TextBlock Text="{Binding Rcount}" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                     <!--<SymbolIcon Symbol="Like" Foreground="#FF666666" />-->
                                                     <HyperlinkButton x:Name="btn_Zan" Click="btn_Zan_Click">
                                                         <TextBlock Text="赞同" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                     </HyperlinkButton>
-                                                    <TextBlock Text="{Binding like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
+                                                    <TextBlock Text="{Binding Like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
                                                 </StackPanel>
                                             </Grid>
                                         </DataTemplate>
@@ -468,33 +468,33 @@
                                                         <StackPanel>
                                                             <Ellipse Width="32" Height="32" Stroke="#7FC1C1C1" HorizontalAlignment="Left">
                                                                 <Ellipse.Fill>
-                                                                    <ImageBrush ImageSource="{Binding avatar}"/>
+                                                                    <ImageBrush ImageSource="{Binding Avatar}"/>
                                                                 </Ellipse.Fill>
                                                             </Ellipse>
                                                             <Image Source="{Binding LV}" Width="24" Margin="0 2"></Image>
                                                         </StackPanel>
                                                     </HyperlinkButton>
-                                                    <TextBlock Margin="5,0" Text="{Binding uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
+                                                    <TextBlock Margin="5,0" Text="{Binding Uname}" Grid.Column="1" VerticalAlignment="Bottom"></TextBlock>
                                                     <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top">
                                                         <StackPanel Orientation="Horizontal"  Margin="5,0">
                                                             <TextBlock Text="#" Foreground="#FFB6B6B6" ></TextBlock>
-                                                            <TextBlock Text="{Binding floor}"  Foreground="#FFB6B6B6" ></TextBlock>
+                                                            <TextBlock Text="{Binding Floor}"  Foreground="#FFB6B6B6" ></TextBlock>
                                                             <TextBlock Text="{Binding Plat}"  Foreground="#FFB6B6B6" Margin="5,0"></TextBlock>
                                                         </StackPanel>
-                                                        <TextBlock Text="{Binding time}" Foreground="#FFB6B6B6"></TextBlock>
+                                                        <TextBlock Text="{Binding Time}" Foreground="#FFB6B6B6"></TextBlock>
                                                     </StackPanel>
-                                                    <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding message}" TextWrapping="Wrap"></TextBlock>
+                                                    <TextBlock Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="2" Margin="0,5" Text="{Binding Message}" TextWrapping="Wrap"></TextBlock>
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.ColumnSpan="2" Grid.Row="3">
                                                         <!--<SymbolIcon Symbol="Message" Foreground="#FF666666" />-->
                                                         <HyperlinkButton  HorizontalAlignment="Left" >
                                                             <TextBlock Text="回复" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                         </HyperlinkButton>
-                                                        <TextBlock Text="{Binding rcount}" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
+                                                        <TextBlock Text="{Binding Rcount}" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                         <!--<SymbolIcon Symbol="Like" Foreground="#FF666666" />-->
                                                         <HyperlinkButton x:Name="btn_Zan" Click="btn_Zan_Click">
                                                             <TextBlock Text="赞同" VerticalAlignment="Center"  FontSize="12" Margin="5,0"></TextBlock>
                                                         </HyperlinkButton>
-                                                        <TextBlock Text="{Binding like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
+                                                        <TextBlock Text="{Binding Like}" VerticalAlignment="Center" FontSize="12" Margin="5,0"></TextBlock>
                                                     </StackPanel>
                                                 </Grid>
                                             </DataTemplate>

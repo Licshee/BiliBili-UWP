@@ -57,12 +57,12 @@ namespace bilibili2.Pages
         {
             object[] o = e.Parameter as object[];
             bg.Color = ((SolidColorBrush)this.Frame.Tag).Color;
-            grid_Commnet.DataContext = o[0] as CommentModel;
+            grid_Commnet.DataContext = o[0] as CommentViewModel;
             ListView_Flyout.Items.Clear();
             ps = 1;
             aid = o[1].ToString();
-            rootsid = ((CommentModel)o[0]).rpid;
-            await GetComments(o[1].ToString(), ((CommentModel)o[0]).rpid);
+            rootsid = ((CommentViewModel)o[0]).Rpid;
+            await GetComments(o[1].ToString(), ((CommentViewModel)o[0]).Rpid);
         }
         private async Task GetComments(string aid, string rootid)
         {
@@ -74,33 +74,26 @@ namespace bilibili2.Pages
                 WebClientClass wc = new WebClientClass();
                 Random r = new Random();
                 string results = await wc.GetResults(new Uri("http://api.bilibili.com/x/reply/reply?oid=" + aid + "&pn=1&ps=20&root=" + rootid + "&type=1&r=" + r.Next(1000, 99999)));
-                CommentModel model = JsonConvert.DeserializeObject<CommentModel>(results);
-                CommentModel model3 = JsonConvert.DeserializeObject<CommentModel>(model.data.ToString());
-                List<CommentModel> ban = JsonConvert.DeserializeObject<List<CommentModel>>(model3.replies.ToString());
+                var ban = JsonConvert.DeserializeObject<Model.ReplyRootModel>(results);
                 ListView_Flyout.Items.Clear();
-                foreach (CommentModel item in ban)
+                foreach (var item in ban.Data.Replies)
                 {
-                    CommentModel model1 = new CommentModel();
-                    model1 = JsonConvert.DeserializeObject<CommentModel>(item.member.ToString());
-                    CommentModel model2 = new CommentModel();
-                    model2 = JsonConvert.DeserializeObject<CommentModel>(item.content.ToString());
-                    CommentModel modelLV = JsonConvert.DeserializeObject<CommentModel>(model1.level_info.ToString());
-                    CommentModel resultsModel = new CommentModel()
+                    CommentViewModel resultsModel = new CommentViewModel()
                     {
-                        avatar = model1.avatar,
-                        message = model2.message,
-                        plat = model2.plat,
-                        floor = item.floor,
-                        uname = model1.uname,
-                        mid = model1.mid,
-                        ctime = item.ctime,
-                        like = item.like,
-                        rcount = item.rcount,
-                        rpid = item.rpid,
-                        current_level=modelLV.current_level
+                        Avatar = item.Member.Avatar,
+                        Message = item.Content.Message,
+                        Plat = Converter.ConvertToPlatform(item.Content.Plat),
+                        Floor = $"{item.Floor}",
+                        Uname = item.Member.Uname,
+                        Mid = item.Member.Mid,
+                        Time = Converter.ConvertToDate(long.Parse($"{item.Ctime}0000000")),
+                        Like = $"{item.Like}",
+                        Rcount =$"{item.Rcount}",
+                        Rpid =$"{item.Rpid}",
+                        LV=Converter.ConvertToLvPic(item.Member.LevelInfo.CurrentLevel)
                     };
                     ListView_Flyout.Items.Add(resultsModel);
-                    if (ban.Count == 0)
+                    if (ban.Data.Page.Count == 0)
                     {
                         btn_Load_More.Content = "加载完了...";
                         btn_Load_More.IsEnabled = false;
@@ -132,35 +125,27 @@ namespace bilibili2.Pages
                 WebClientClass wc = new WebClientClass();
                 Random r = new Random();
                 string results = await wc.GetResults(new Uri("http://api.bilibili.com/x/reply/reply?oid=" + aid + "&pn=" + num + "&ps=20&root=" + rootid + "&type=1&r=" + r.Next(1000, 99999)));
-                CommentModel model = JsonConvert.DeserializeObject<CommentModel>(results);
-                CommentModel model3 = JsonConvert.DeserializeObject<CommentModel>(model.data.ToString());
-                //Video_Grid_Info.DataContext = model;
-                List<CommentModel> ban = JsonConvert.DeserializeObject<List<CommentModel>>(model3.replies.ToString());
+                var ban = JsonConvert.DeserializeObject<Model.ReplyRootModel>(results);
 
-                foreach (CommentModel item in ban)
+                foreach (var item in ban.Data.Replies)
                 {
-                    CommentModel model1 = new CommentModel();
-                    model1 = JsonConvert.DeserializeObject<CommentModel>(item.member.ToString());
-                    CommentModel model2 = new CommentModel();
-                    model2 = JsonConvert.DeserializeObject<CommentModel>(item.content.ToString());
-                    CommentModel modelLV = JsonConvert.DeserializeObject<CommentModel>(model1.level_info.ToString());
-                    CommentModel resultsModel = new CommentModel()
+                    CommentViewModel resultsModel = new CommentViewModel()
                     {
-                        avatar = model1.avatar,
-                        message = model2.message,
-                        plat = model2.plat,
-                        floor = item.floor,
-                        uname = model1.uname,
-                        mid = model1.mid,
-                        ctime = item.ctime,
-                        like = item.like,
-                        rcount = item.rcount,
-                        rpid = item.rpid,
-                        current_level=modelLV.current_level
+                        Avatar = item.Member.Avatar,
+                        Message = item.Content.Message,
+                        Plat = Converter.ConvertToPlatform(item.Content.Plat),
+                        Floor = $"{item.Floor}",
+                        Uname = item.Member.Uname,
+                        Mid = item.Member.Mid,
+                        Time = Converter.ConvertToDate(long.Parse($"{item.Ctime}0000000")),
+                        Like = $"{item.Like}",
+                        Rcount = $"{item.Rcount}",
+                        Rpid = $"{item.Rpid}",
+                        LV = Converter.ConvertToLvPic(item.Member.LevelInfo.CurrentLevel)
                     };
                     ListView_Flyout.Items.Add(resultsModel);
                 }
-                if (ban.Count == 0)
+                if (ban.Data.Page.Count == 0)
                 {
                     btn_Load_More.Content = "加载完了...";
                     btn_Load_More.IsEnabled = false;
@@ -184,7 +169,7 @@ namespace bilibili2.Pages
 
         private async void btn_Zan_Click(object sender, RoutedEventArgs e)
         {
-            string rpid = ((sender as HyperlinkButton).DataContext as CommentModel).rpid;
+            string rpid = ((sender as HyperlinkButton).DataContext as CommentViewModel).Rpid;
             UserClass getUser = new UserClass();
             if (getUser.IsLogin())
             {
@@ -250,8 +235,8 @@ namespace bilibili2.Pages
 
         private void ListView_Flyout_ItemClick(object sender, ItemClickEventArgs e)
         {
-            root = (e.ClickedItem as CommentModel).rpid;
-            txt_Com_1.Text = "回复 @" + (e.ClickedItem as CommentModel).uname + ":";
+            root = (e.ClickedItem as CommentViewModel).Rpid;
+            txt_Com_1.Text = "回复 @" + (e.ClickedItem as CommentViewModel).Uname + ":";
         }
 
         private async void btn_Load_More_Click(object sender, RoutedEventArgs e)
@@ -323,8 +308,8 @@ namespace bilibili2.Pages
 
         private void HyperlinkButton_Click(object sender, RoutedEventArgs e)
         {
-            CommentModel model = (sender as HyperlinkButton).DataContext as CommentModel;
-            this.Frame.Navigate(typeof(UserInfoPage), model.mid);
+            CommentViewModel model = (sender as HyperlinkButton).DataContext as CommentViewModel;
+            this.Frame.Navigate(typeof(UserInfoPage), model.Mid);
         }
     }
 }

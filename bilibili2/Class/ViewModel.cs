@@ -8,32 +8,15 @@ using System.Threading.Tasks;
 
 namespace bilibili2
 {
-    //Code
-    public class CodeModel
-    {
-        [JsonProperty("code")]
-        public int Code { get; set; }
-        [JsonProperty("data")]
-        public object Data { get; set; }
-    }
     //Banner
-    public class BannerModel
+    public class BannerViewModel
     {
-        [JsonProperty("title")]
         public string Title { get; set; }
-        [JsonProperty("value")]
-        public string Value { get; set; }
-        [JsonProperty("image")]
-        public string Image { get; set; }
-        [JsonProperty("type")]
         public int Type { get; set; }
-        [JsonProperty("weight")]
-        public int Weight { get; set; }
-        [JsonProperty("remark")]
-        public string Remark { get; set; }
-        [JsonProperty("hash")]
-        public string Hash { get; set; }
+        public string Image { get; set; }
+        public string Value { get; set; }
     }
+
     //视频详细信息
     public class VideoInfoModel
     {
@@ -121,14 +104,15 @@ namespace bilibili2
             }
         }
 
-        public string Created_at {
+        public string Created_at
+        {
             get
             {
                 DateTime dt = Convert.ToDateTime(created_at);
-                if (dt.Date==DateTime.Now.Date)
+                if (dt.Date == DateTime.Now.Date)
                 {
                     TimeSpan ts = DateTime.Now - dt;
-                    return ts.Hours+"小时前";
+                    return ts.Hours + "小时前";
                 }
                 else
                 {
@@ -152,28 +136,28 @@ namespace bilibili2
         public string desc { get; set; }
         //UP信息
         public object owner { get; set; }
-            public string mid { get; set; }
-            public string name { get; set; }
-            public string face { get; set; }
+        public string mid { get; set; }
+        public string name { get; set; }
+        public string face { get; set; }
         //视频数据
         public object stat { get; set; }
-          public string view { get; set; }
-          public string danmaku { get; set; }
-          public string reply { get; set; }
-          public string favorite { get; set; }
-          public string coin { get; set; }
-          public string share { get; set; }
+        public string view { get; set; }
+        public string danmaku { get; set; }
+        public string reply { get; set; }
+        public string favorite { get; set; }
+        public string coin { get; set; }
+        public string share { get; set; }
         //TAG
         public object tags { get; set; }
         //视频P
         public object pages { get; set; }
-            public string cid { get; set; }
-            public string page { get; set; }
-            public string from { get; set; }
-            public string part { get; set; }
+        public string cid { get; set; }
+        public string page { get; set; }
+        public string from { get; set; }
+        public string part { get; set; }
         //视频关注信息
         public object req_user { get; set; }
-          public int attention { get; set; }//关注Up主,-999为关注,1已关注
+        public int attention { get; set; }//关注Up主,-999为关注,1已关注
         //public int favorite { get; set; }//是否已经收藏，0为未收藏，1为已经收藏
 
         public string Play
@@ -242,10 +226,10 @@ namespace bilibili2
             get
             {
                 DateTime dtStart = new DateTime(1970, 1, 1);
-                long lTime = long.Parse(pubdate+ "0000000");
+                long lTime = long.Parse(pubdate + "0000000");
                 //long lTime = long.Parse(textBox1.Text);
                 TimeSpan toNow = new TimeSpan(lTime);
-              
+
                 DateTime dt = dtStart.Add(toNow);
                 if (dt.Date == DateTime.Now.Date)
                 {
@@ -261,80 +245,20 @@ namespace bilibili2
 
     }
     //评论
-    public class CommentModel
+    public class CommentViewModel
     {
-
-        public object data { get; set; }
-        public object replies { get; set; }
-        public object member { get; set; }
-        public object content { get; set; }
-        public object level_info { get; set; }
-        public string avatar { get; set; }
-        public string uname { get; set; }
-        public string floor { get; set; }
-        public string rpid { get; set; }
-        public long ctime { set; get; }
-        public int plat { get; set; }
-        public string Plat
-        {
-            get
-            {
-                switch (plat)
-                {
-                    case 2:
-                        return "来自 Android";
-                    case 3:
-                        return "来自 IOS";
-                    case 4:
-                        return "来自 WindowsPhone";
-                    case 6:
-                        return "来自 Windows";
-                    default:
-                        return "";
-                }
-            }
-        }
-        public string mid { get; set; }
-        public string time
-        {
-            get
-            {
-                DateTime dtStart = new DateTime(1970, 1, 1);
-                long lTime = long.Parse(ctime + "0000000");
-                //long lTime = long.Parse(textBox1.Text);
-                TimeSpan toNow = new TimeSpan(lTime);
-                return dtStart.Add(toNow).ToLocalTime().ToString();
-            }
-        }
-        public string rcount { get; set; }
-        public string like { get; set; }
-        public string message { get; set; }
-        public int current_level { get; set; }
-        public string LV
-        {
-            get
-            {
-                switch (current_level)
-                {
-                    case 0:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv0_large.png";
-                    case 1:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv1_large.png";
-                    case 2:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv2_large.png";
-                    case 3:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv3_large.png";
-                    case 4:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv4_large.png";
-                    case 5:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv5_large.png";
-                    case 6:
-                        return "ms-appx:///Assets/MiniIcon/ic_lv6_large.png";
-                    default:
-                        return "";
-                }
-            }
-        }
+        public object Replies { get; set; }
+        public string Avatar { get; set; }
+        public string Uname { get; set; }
+        public string Floor { get; set; }
+        public string Rpid { get; set; }
+        public string Plat { get; set; }
+        public string Mid { get; set; }
+        public string Time { get; set; }
+        public string Rcount { get; set; }
+        public string Like { get; set; }
+        public string Message { get; set; }
+        public string LV { get; set; }
     }
     //视频相关
     public class RecommendModel
@@ -363,7 +287,7 @@ namespace bilibili2
         }
     }
     //用户信息
-   public  class GetLoginInfoModel
+    public class GetLoginInfoModel
     {
         public string mid { get; set; }//ID
         public string name { get; set; }//昵称
@@ -420,7 +344,7 @@ namespace bilibili2
         public int current_level { get; set; }
         public string place { get; set; }//地址
     }
-    public  class GetFavouriteBoxsVideoModel
+    public class GetFavouriteBoxsVideoModel
     {
         //Josn：http://space.bilibili.com/ajax/fav/getList?mid=用户ID&pagesize=30&fid=收藏夹编号
         //第一层
@@ -461,7 +385,7 @@ namespace bilibili2
         public int max_count { get; set; }//最大数量
 
     }
-   public  class GetUserAttention
+    public class GetUserAttention
     {
         //Josn：http://space.bilibili.com/ajax/friend/GetAttentionList?mid=XXXX&pagesize=999
         //第一层
@@ -478,7 +402,7 @@ namespace bilibili2
         public int pages { get; set; }
 
     }
-   public class GetUserSubmit
+    public class GetUserSubmit
     {
         //Josn：http://space.bilibili.com/ajax/friend/GetAttentionList?mid=XXXX&pagesize=999
         //第一层
@@ -487,7 +411,7 @@ namespace bilibili2
                                         //第二层
         public object vlist { get; set; }//结果，包含第三层
         public object list { get; set; }//结果，包含第三层
-                                         //第三层
+                                        //第三层
         public string aid { get; set; }//视频ID
         public string title { get; set; }//标题
         public string pic { get; set; }//图片
@@ -500,7 +424,7 @@ namespace bilibili2
         public int count { get; set; }
         public int pages { get; set; }
     }
-   public class GetHistoryModel
+    public class GetHistoryModel
     {
         //必须有登录Cookie
         //Josn：http://api.bilibili.com/x/history?jsonp=jsonp&ps=20&pn=1
@@ -533,7 +457,7 @@ namespace bilibili2
         {
             get
             {
-                if (live_status==1)
+                if (live_status == 1)
                 {
                     return "正在直播";
                 }
@@ -634,7 +558,7 @@ namespace bilibili2
         public string create { get; set; }//上传时间
         public string pic { get; set; }//封面
 
-      public string Create
+        public string Create
         {
             get
             {
@@ -647,7 +571,7 @@ namespace bilibili2
                 }
                 else
                 {
-                        return create;
+                    return create;
                 }
             }
         }
@@ -1022,23 +946,23 @@ namespace bilibili2
 
         public object data { get; set; }
         public object banner { get; set; }
-            public string title { get; set; }
-            public string img { get; set; }
-            public string remark { get; set; }
-            public string link { get; set; }
+        public string title { get; set; }
+        public string img { get; set; }
+        public string remark { get; set; }
+        public string link { get; set; }
         public object partitions { get; set; }
-            public object partition { get; set; }
-                public string name { get; set; }
-                 public int id { get; set; }
-           public object lives { get; set; }
-                public object owner { get; set; }
-                    public string face { get; set; }
-                    public string mid { get; set; }
-                public object cover { get; set; }
-                    public string src { get; set; }
-                //public string title { get; set; }
-                public long online { get; set; }
-                public string room_id { get; set; }
+        public object partition { get; set; }
+        public string name { get; set; }
+        public int id { get; set; }
+        public object lives { get; set; }
+        public object owner { get; set; }
+        public string face { get; set; }
+        public string mid { get; set; }
+        public object cover { get; set; }
+        public string src { get; set; }
+        //public string title { get; set; }
+        public long online { get; set; }
+        public string room_id { get; set; }
     }
 
     public class MessageModel
@@ -1060,12 +984,13 @@ namespace bilibili2
         public string message { get; set; }
         public string id { get; set; }
         public string cursor { get; set; }
-       
+
         public string title { get; set; }
-        
+
         public string Title
         {
-            get {
+            get
+            {
                 //#{【4月】迷家 04【独家正版】}{"http://www.bilibili.com/video/av4439268/"}评论中回复了你
                 Match ban = Regex.Match(title, @"#{(.*?)}{""(.*?)""}");
                 if (ban.Groups[1].Value.Length == 0)
@@ -1074,16 +999,17 @@ namespace bilibili2
                 }
                 else
                 {
-                    string a= ban.Groups[1].Value+ title.Replace(ban.Groups[0].Value, string.Empty);
+                    string a = ban.Groups[1].Value + title.Replace(ban.Groups[0].Value, string.Empty);
                     link = ban.Groups[2].Value;
                     return a;
                 }
-              
+
             }
         }
         public string link { get; set; }
         public string content { get; set; }
-        public string Content {
+        public string Content
+        {
             get
             {
                 string ban = Regex.Match(content, @"^#{(.*?)}{""(.*?)""}$").Groups[1].Value;
@@ -1109,7 +1035,7 @@ namespace bilibili2
                 }
                 else
                 {
-                    string a =  content.Replace(ban.Groups[0].Value, ban.Groups[1].Value);
+                    string a = content.Replace(ban.Groups[0].Value, ban.Groups[1].Value);
                     link = ban.Groups[2].Value;
                     return a;
                 }
@@ -1132,15 +1058,17 @@ namespace bilibili2
         public string avatar_url { get; set; }
         public int msg_count { get; set; }
         public string last_msg { get; set; }
-        public long last_time  { get; set; }
+        public long last_time { get; set; }
 
-        public string Last_time {
-            get {
+        public string Last_time
+        {
+            get
+            {
                 DateTime dtStart = new DateTime(1970, 1, 1);
                 long lTime = long.Parse(last_time + "0000");
                 //long lTime = long.Parse(textBox1.Text);
                 TimeSpan toNow = new TimeSpan(lTime);
-                DateTime dt= dtStart.Add(toNow).ToLocalTime();
+                DateTime dt = dtStart.Add(toNow).ToLocalTime();
                 TimeSpan span = DateTime.Now - dt;
                 if (span.TotalDays > 7)
                 {
@@ -1171,7 +1099,8 @@ namespace bilibili2
                     return "1秒前";
                 }
 
-            } }
+            }
+        }
     }
 
 }

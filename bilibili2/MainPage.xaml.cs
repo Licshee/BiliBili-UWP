@@ -1,4 +1,5 @@
 ﻿using bilibili2.Class;
+using bilibili2.Model;
 using bilibili2.Pages;
 using bilibili2.PartPages;
 using Newtonsoft.Json;
@@ -656,7 +657,13 @@ namespace bilibili2
             try
             {
                 var model = JsonConvert.DeserializeObject<CodeModel>(results);
-                var ban = JsonConvert.DeserializeObject<List<BannerModel>>(model.Data.ToString());
+                var ban = model.Data.Select(item => new BannerViewModel
+                {
+                    Image = item.Image,
+                    Title = item.Title,
+                    Type = item.Type,
+                    Value = item.Value
+                });
                 var li = from a in ban where a.Type != 1 select a;
                 home_flipView.ItemsSource = li;
                 fvLeft.ItemsSource = li;
@@ -1109,14 +1116,14 @@ namespace bilibili2
         //Banner点击
         private void HyperlinkButton_Click_1(object sender, RoutedEventArgs e)
         {
-            if (((BannerModel)home_flipView.SelectedItem).Type == 2)
+            if (((BannerViewModel)home_flipView.SelectedItem).Type == 2)
             {
-                infoFrame.Navigate(typeof(WebViewPage), ((BannerModel)home_flipView.SelectedItem).Value);
+                infoFrame.Navigate(typeof(WebViewPage), ((BannerViewModel)home_flipView.SelectedItem).Value);
                 //jinr.From = this.ActualWidth;
             }
-            if (((BannerModel)home_flipView.SelectedItem).Type == 3)
+            if (((BannerViewModel)home_flipView.SelectedItem).Type == 3)
             {
-                infoFrame.Navigate(typeof(BanInfoPage), ((BannerModel)home_flipView.SelectedItem).Value);
+                infoFrame.Navigate(typeof(BanInfoPage), ((BannerViewModel)home_flipView.SelectedItem).Value);
                 //KeyValuePair<string, bool> info = new KeyValuePair<string, bool>(((BannerModel)home_flipView.SelectedItem).value, true);
                 //this.Frame.Navigate(typeof(BangumiInfoPage), info);
                 // this.Frame.Navigate(typeof(WebViewPage), ((BannerModel)home_flipView.SelectedItem).value);
