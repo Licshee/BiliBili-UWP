@@ -469,27 +469,27 @@ namespace bilibili2
         }
     }
     //首页信息
-    public class InfoModel
+    public class AVInfoViewModel
     {
-        public object list { get; set; }
-        public string pic { get; set; }
-        public string title { get; set; }
-        public string play { get; set; }
-        public string author { get; set; }
-        public string video_review { get; set; }
-        public string description { get; set; }
-        public string mid { get; set; }
-        public string aid { get; set; }
-        public int num { get; set; }
-
-        //用于直播
-        public object data { get; set; }
-        public string room_id { get; set; }
-        public string online { get; set; }
-        public string uname { get; set; }
-        public string cover { get; set; }
-        public string face { get; set; }
-        public string roomid { get; set; }
+        public string Pic { get; set; }
+        public string Title { get; set; }
+        public string Play { get; set; }
+        public string Author { get; set; }
+        public string VideoReview { get; set; }
+        public string Description { get; set; }
+        public string Mid { get; set; }
+        public string Aid { get; set; }
+        public int Num { get; set; }
+    }
+    //用于直播
+    public class LiveInfoViewModel
+    {
+        public string RoomId { get; set; }
+        public string Online { get; set; }
+        public string Uname { get; set; }
+        public string Cover { get; set; }
+        public string Face { get; set; }
+        public string Title { get; set; }
     }
     //热门搜索
     public class HotModel
@@ -939,30 +939,21 @@ namespace bilibili2
         public object backup_url { get; set; }//视频备份地址
     }
 
-    public class HomeLiveModel
+    public class HomeLiveViewModel
     {
-        public int code { get; set; }
-        public string message { get; set; }
-
-        public object data { get; set; }
-        public object banner { get; set; }
-        public string title { get; set; }
-        public string img { get; set; }
-        public string remark { get; set; }
-        public string link { get; set; }
-        public object partitions { get; set; }
-        public object partition { get; set; }
-        public string name { get; set; }
-        public int id { get; set; }
-        public object lives { get; set; }
-        public object owner { get; set; }
-        public string face { get; set; }
-        public string mid { get; set; }
-        public object cover { get; set; }
-        public string src { get; set; }
-        //public string title { get; set; }
-        public long online { get; set; }
-        public string room_id { get; set; }
+        public int Code { get; set; }
+        public string Message { get; set; }
+        public string Title { get; set; }
+        public string Img { get; set; }
+        public string Remark { get; set; }
+        public string Link { get; set; }
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public string Face { get; set; }
+        public string Mid { get; set; }
+        public string Src { get; set; }
+        public long Online { get; set; }
+        public string RoomId { get; set; }
     }
 
     public class MessageModel

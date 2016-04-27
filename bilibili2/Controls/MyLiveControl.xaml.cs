@@ -27,7 +27,7 @@ namespace bilibili2.Controls
         public delegate void PlayHandler(string aid);
         public event PlayHandler PlayEvent;
         public event PlayHandler ErrorEvent;
-        public bool isLoaded= false;
+        public bool isLoaded = false;
         private void UserControl_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (this.ActualWidth <= 500)
@@ -97,123 +97,137 @@ namespace bilibili2.Controls
                 string url = string.Format("http://live.bilibili.com/AppIndex/home?_device=wp&_ulv=10000&access_key={0}&appkey={1}&build=411005&platform=android&scale=xxhdpi", ApiHelper.access_key, ApiHelper._appKey);
                 url += "&sign=" + ApiHelper.GetSign(url);
                 string results = await wc.GetResults(new Uri(url));
-                HomeLiveModel model = JsonConvert.DeserializeObject<HomeLiveModel>(results);
-                if (model.code == 0)
+                var model = JsonConvert.DeserializeObject<Model.HomeLiveRootModel>(results);
+                if (model.Code == 0)
                 {
-                    HomeLiveModel dataModel = JsonConvert.DeserializeObject<HomeLiveModel>(model.data.ToString());
-                    List<HomeLiveModel> partModel = JsonConvert.DeserializeObject<List<HomeLiveModel>>(dataModel.partitions.ToString());
-                    foreach (HomeLiveModel item in partModel)
+                    foreach (var item in model.Data.Partitions)
                     {
-                        HomeLiveModel partitionModel = JsonConvert.DeserializeObject<HomeLiveModel>(item.partition.ToString());
-                        List<HomeLiveModel> livesModel = JsonConvert.DeserializeObject<List<HomeLiveModel>>(item.lives.ToString());
-                        switch (partitionModel.name)
+                        switch (item.Partition.Name)
                         {
                             case "热门直播":
-                                for (int i = 0; i < 12; i++)
+                                var hot = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_Hot.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online=vm.Online
+                                });
+                                foreach (var vm in hot)
+                                {
+                                    gridview_Hot.Items.Add(vm);
                                 }
                                 break;
                             case "萌宅推荐":
-                                for (int i = 0; i < 12; i++)
+                                var mz = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_MZ.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in mz)
+                                {
+                                    gridview_MZ.Items.Add(vm);
                                 }
                                 break;
                             case "绘画专区":
-                                for (int i = 0; i < 12; i++)
+                                var hh = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_HH.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in hh)
+                                {
+                                    gridview_HH.Items.Add(vm);
                                 }
                                 break;
                             case "御宅文化":
-                                for (int i = 0; i < 12; i++)
+                                var yz = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_YZ.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in yz)
+                                {
+                                    gridview_YZ.Items.Add(vm);
                                 }
                                 break;
                             case "生活娱乐":
-                                for (int i = 0; i < 12; i++)
+                                var sh = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_SH.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in sh)
+                                {
+                                    gridview_SH.Items.Add(vm);
                                 }
                                 break;
                             case "单机联机":
-                                for (int i = 0; i < 12; i++)
+                                var dj = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_DJ.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in dj)
+                                {
+                                    gridview_DJ.Items.Add(vm);
                                 }
                                 break;
                             case "网络游戏":
-                                for (int i = 0; i < 12; i++)
+                                var wl = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_WL.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in wl)
+                                {
+                                    gridview_WL.Items.Add(vm);
                                 }
                                 break;
                             case "电子竞技":
-                                for (int i = 0; i < 12; i++)
+                                var dz = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_JJ.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in dz)
+                                {
+                                    gridview_JJ.Items.Add(vm);
                                 }
                                 break;
                             case "放映厅":
-                                for (int i = 0; i < 12; i++)
+                                var fy = item.Lives.Select(vm => new HomeLiveViewModel
                                 {
-                                    HomeLiveModel ownerModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].owner.ToString());
-                                    HomeLiveModel coverModel = JsonConvert.DeserializeObject<HomeLiveModel>(livesModel[i].cover.ToString());
-                                    livesModel[i].src = coverModel.src;
-                                    livesModel[i].name = ownerModel.name;
-                                    livesModel[i].mid = ownerModel.mid;
-                                    livesModel[i].face = ownerModel.face;
-                                    gridview_FY.Items.Add(livesModel[i]);
+                                    Src = vm.Cover.Src,
+                                    Name = vm.Owner.Name,
+                                    Mid = $"{vm.Owner.Mid}",
+                                    Face = vm.Owner.Face,
+                                    Online = vm.Online
+                                });
+                                foreach (var vm in fy)
+                                {
+                                    gridview_FY.Items.Add(vm);
                                 }
                                 break;
                             default:
@@ -224,7 +238,7 @@ namespace bilibili2.Controls
                 }
                 else
                 {
-                    ErrorEvent("读取直播失败" + model.message);
+                    ErrorEvent("读取直播失败" + model.Message);
                     isLoaded = false;
                 }
             }

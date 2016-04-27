@@ -123,7 +123,10 @@
       <DependentUpon>MessageShow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\BannerModel.cs" />
+    <Compile Include="Model\HomeLiveModel.cs" />
+    <Compile Include="Model\OnlineModel.cs" />
     <Compile Include="Model\ReplyModel.cs" />
+    <Compile Include="Model\ZonePageModel.cs" />
     <Compile Include="Pages\AllLivePage.xaml.cs">
       <DependentUpon>AllLivePage.xaml</DependentUpon>
     </Compile>

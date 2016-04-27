@@ -124,7 +124,7 @@ namespace bilibili2.Model
         [JsonProperty("replies")]
         public IEnumerable<ReplyModel> Replies { get; set; }
     }
-    public class DataModel
+    public class ReplyDataModel
     {
         [JsonProperty("need_captcha")]
         public bool NeedCaptcha { get; set; }
@@ -138,6 +138,6 @@ namespace bilibili2.Model
         [JsonProperty("code")]
         public int Code { get; set; }
         [JsonProperty("data")]
-        public DataModel Data { get; set; }
+        public ReplyDataModel Data { get; set; }
     }
 }

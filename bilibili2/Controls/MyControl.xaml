@@ -27,20 +27,20 @@
                         <RowDefinition Height="36"></RowDefinition>
                         <RowDefinition Height="22"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Image Source="{Binding Path=pic}" Width="200" VerticalAlignment="Top" Height="125"></Image>
+                    <Image Source="{Binding Path=Pic}" Width="200" VerticalAlignment="Top" Height="125"></Image>
                     <Grid Height="20" Grid.Row="2">
                         <StackPanel Orientation="Horizontal" Margin="5,0" >
                             <Image Width="16" Height="16" Source="ms-appx:///Assets/Icon/ic_info_views2.png" Margin="0,3,5,0"></Image>
                             <!--<TextBlock Text="播放：" FontSize="14"  Foreground="White"></TextBlock>-->
-                            <TextBlock Text="{Binding Path=play}" FontSize="13"  Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Path=Play}" FontSize="13"  Foreground="Gray" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Margin="5,0" HorizontalAlignment="Right">
                             <Image Width="16" Height="16" Source="ms-appx:///Assets/Icon/ic_info_danmakus2.png"  Margin="0,3,5,0"></Image>
-                            <TextBlock Text="{Binding Path=video_review}" FontSize="13"  Foreground="Gray" VerticalAlignment="Center"></TextBlock>
+                            <TextBlock Text="{Binding Path=VideoReview}" FontSize="13"  Foreground="Gray" VerticalAlignment="Center"></TextBlock>
                         </StackPanel>
                     </Grid>
                     <StackPanel Grid.Row="1" Orientation="Vertical" Margin="5,0" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Path=title}" MaxWidth="320" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" FontSize="13" ></TextBlock>
+                        <TextBlock Text="{Binding Path=Title}" MaxWidth="320" TextWrapping="Wrap" MaxLines="2" TextTrimming="CharacterEllipsis" FontSize="13" ></TextBlock>
                     </StackPanel>
                 </Grid>
             </Viewbox>

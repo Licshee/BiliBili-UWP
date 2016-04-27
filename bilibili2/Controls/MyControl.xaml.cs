@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -95,16 +96,27 @@ namespace bilibili2
             try
             {
                 ls.Items.Clear();
-                InfoModel model = JsonConvert.DeserializeObject<InfoModel>(results);
-                List<InfoModel> ban = JsonConvert.DeserializeObject<List<InfoModel>>(model.list.ToString());
-                for (int i = 0; i <12; i++)
+                var json = JsonConvert.DeserializeObject<Model.ZoneRootModel>(results);
+                var list = json.List.Select((item, i) => new AVInfoViewModel
                 {
-                    ls.Items.Add(ban[i]);
-                }
-              
+                    Aid = item.Aid,
+                    Author = item.Author,
+                    Description = item.Description,
+                    Pic = item.Pic,
+                    Title = item.Title,
+                    Play = $"{item.Play}",
+                    VideoReview = $"{item.VideoReview}",
+                    Num = i + 1,
+                    Mid = $"{item.Mid}"
+                });
+                foreach(var item in list)
+                {
+                    ls.Items.Add(item);
+                }         
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var message = ex.Message;
                 //ErrorEvent(ex.Message);
             }
         }
@@ -169,7 +181,7 @@ namespace bilibili2
         }
         private void home_GridView_FJ_ItemClick(object sender, ItemClickEventArgs e)
         {
-            PlayEvent((e.ClickedItem as InfoModel).aid);
+            PlayEvent((e.ClickedItem as AVInfoViewModel).Aid);
         }
 
         private async void btn_Refresh_Click(object sender, RoutedEventArgs e)

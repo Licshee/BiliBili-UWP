@@ -78,28 +78,43 @@ namespace bilibili2.Pages
                 CanLoad = false;
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://api.bilibili.com/live/room_list?page=" + PageNum + "&pagesize=30&status=LIVE"));
-                InfoModel model = new InfoModel();
-                model = JsonConvert.DeserializeObject<InfoModel>(results);
-                JObject json = JObject.Parse(model.list.ToString());
-                List<InfoModel> ReList = new List<InfoModel>();
-                for (int i = 0; i < 20; i++)
+                //InfoViewModel model = new InfoViewModel();
+                //model = JsonConvert.DeserializeObject<InfoViewModel>(results);
+                //JObject json = JObject.Parse(model.List.ToString());
+                var jsonDic = JObject.Parse(results);
+                var list = jsonDic["list"].Children().Values().Select(item=>new LiveInfoViewModel
                 {
-                    live_HOT.Items.Add(new InfoModel
-                    {
-                        room_id = (string)json[i.ToString()]["room_id"],
-                        title = (string)json[i.ToString()]["title"],
-                        cover = (string)json[i.ToString()]["cover"],
-                        uname = (string)json[i.ToString()]["uname"],
-                        online = (string)json[i.ToString()]["online"],
-                        face = (string)json[i.ToString()]["face"],
-                    });
+                    RoomId=item.Value<string>("room_id"),
+                    Title=item.Value<string>("title"),
+                    Cover=item.Value<string>("cover"),
+                    Uname=item.Value<string>("uname"),
+                    Online=item.Value<string>("online"),
+                    Face=item.Value<string>("face")
+                });
+                foreach(var item in list)
+                {
+                    live_HOT.Items.Add(item);
                 }
+                //List<InfoViewModel> ReList = new List<InfoViewModel>();
+                //for (int i = 0; i < 30; i++)
+                //{
+                //    live_HOT.Items.Add(new InfoViewModel
+                //    {
+                //        RoomId = list.["room_id"],
+                //        Title = (string)json[i.ToString()]["title"],
+                //        Cover = (string)json[i.ToString()]["cover"],
+                //        Uname = (string)json[i.ToString()]["uname"],
+                //        Online = (string)json[i.ToString()]["online"],
+                //        Face = (string)json[i.ToString()]["face"],
+                //    });
+                //}
                 Hot = true;
                 CanLoad = true;
                 PageNum++;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                var message = ex.Message;
             }
         }
 
@@ -109,12 +124,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/otaku?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Yz.Items.Add(item);
+                    live_Yz.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 Yz = true;
             }
@@ -129,12 +150,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/ent-life?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Sh.Items.Add(item);
+                    live_Sh.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 Sh = true;
             }
@@ -149,12 +176,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/single?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Dj.Items.Add(item);
+                    live_Dj.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 Dj = true;
             }
@@ -169,12 +202,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/online?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Wl.Items.Add(item);
+                    live_Wl.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 Wl = true;
             }
@@ -189,12 +228,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/e-sports?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Dzj.Items.Add(item);
+                    live_Dzj.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 dzjz = true;
             }
@@ -209,12 +254,18 @@ namespace bilibili2.Pages
             {
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://live.bilibili.com/movie?page=1&ajax=1"));
-                InfoModel data = JsonConvert.DeserializeObject<InfoModel>(results);
-                //JObject json = JObject.Parse(results);
-                List<InfoModel> model = JsonConvert.DeserializeObject<List<InfoModel>>(data.data.ToString());
-                foreach (InfoModel item in model)
+                var model = JsonConvert.DeserializeObject<Model.OnlineRootModel>(results);
+                foreach (var item in model.Data)
                 {
-                    live_Dy.Items.Add(item);
+                    live_Dy.Items.Add(new LiveInfoViewModel
+                    {
+                        Cover = item.Cover,
+                        Face = item.Face,
+                        Online = $"{item.Online}",
+                        RoomId = $"{item.Roomid}",
+                        Title = item.Title,
+                        Uname = item.Uname
+                    });
                 }
                 Dy = true;
             }
