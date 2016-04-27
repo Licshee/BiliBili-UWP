@@ -122,10 +122,16 @@
     <Compile Include="Controls\MessageShow.xaml.cs">
       <DependentUpon>MessageShow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Model\BangumiTimeLineModel.cs" />
     <Compile Include="Model\BannerModel.cs" />
     <Compile Include="Model\HomeLiveModel.cs" />
+    <Compile Include="Model\HotModel.cs" />
+    <Compile Include="Model\LoginModel.cs" />
     <Compile Include="Model\OnlineModel.cs" />
+    <Compile Include="Model\RecommendModel.cs" />
     <Compile Include="Model\ReplyModel.cs" />
+    <Compile Include="Model\TagModel.cs" />
+    <Compile Include="Model\TopicModel.cs" />
     <Compile Include="Model\ZonePageModel.cs" />
     <Compile Include="Pages\AllLivePage.xaml.cs">
       <DependentUpon>AllLivePage.xaml</DependentUpon>

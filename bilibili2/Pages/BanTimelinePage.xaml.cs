@@ -152,9 +152,19 @@ namespace bilibili2.Pages
                 pr_Load_Ban.Visibility = Visibility.Visible;
                WebClientClass  wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://app.bilibili.com/bangumi/timeline_v2"));
-                BangumiTimeLineModel model = new BangumiTimeLineModel();
-                model = JsonConvert.DeserializeObject<BangumiTimeLineModel>(results);
-                List<BangumiTimeLineModel> ban = JsonConvert.DeserializeObject<List<BangumiTimeLineModel>>(model.list.ToString());
+                var model = JsonConvert.DeserializeObject<Model.BangumiTimeLineRootModel>(results);
+                var ban = from item in model.List
+                          select new BangumiTimeLineViewModel
+                          {
+                              Bgmcount = item.Bgmcount,
+                              Cover = item.Cover,
+                              LastupdateAt = item.LastupdateAt,
+                              SeasonId = $"{item.SeasonId}",
+                              Spid = $"{item.Spid}",
+                              SquareCover = item.SquareCover,
+                              Title = item.Title,
+                              Weekday = item.Weekday
+                          };
                 list_0.Items.Clear();
                 list_1.Items.Clear();
                 list_2.Items.Clear();
@@ -163,9 +173,9 @@ namespace bilibili2.Pages
                 list_5.Items.Clear();
                 list_6.Items.Clear();
                 list_7.Items.Clear();
-                foreach (BangumiTimeLineModel item in ban)
+                foreach (var item in ban)
                 {
-                    switch (item.weekday)
+                    switch (item.Weekday)
                     {
                         case -1:
                             list_7.Items.Add(item);
@@ -382,7 +392,7 @@ namespace bilibili2.Pages
        //番剧时间表点击
         private void list_0_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(BanInfoPage), (e.ClickedItem as BangumiTimeLineModel).season_id);
+            this.Frame.Navigate(typeof(BanInfoPage), (e.ClickedItem as BangumiTimeLineViewModel).SeasonId);
         }
     }
 }

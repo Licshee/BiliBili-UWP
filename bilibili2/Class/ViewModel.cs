@@ -247,7 +247,6 @@ namespace bilibili2
     //评论
     public class CommentViewModel
     {
-        public object Replies { get; set; }
         public string Avatar { get; set; }
         public string Uname { get; set; }
         public string Floor { get; set; }
@@ -261,31 +260,23 @@ namespace bilibili2
         public string LV { get; set; }
     }
     //视频相关
-    public class RecommendModel
+    public class RecommendViewModel
     {
-        public string dm_count { get; set; }
-        public string title { get; set; }
-        public string id { get; set; }
-        public string click { get; set; }
-        public string pic { get; set; }
-        public string author_name { get; set; }
+        public string DmCount { get; set; }
+        public string Title { get; set; }
+        public string Id { get; set; }
+        public string Click { get; set; }
+        public string Pic { get; set; }
+        public string AuthorName { get; set; }
     }
     //这个Model用来保存登录请求的access_key
-    public class LoginModel
-    {
-        private string _access_key;
-        public string access_key
-        {
-            get { return _access_key; }
-            set { _access_key = value; }
-        }
-        public string mid { get; set; }
-        public int code { get; set; }
-        public string expires
-        {
-            get; set;
-        }
-    }
+    //public class LoginViewModel
+    //{
+    //    public string AccessKey { get; set; }
+    //    public string Mid { get; set; }
+    //    public int Code { get; set; }
+    //    public string Expires { get; set; }
+    //}
     //用户信息
     public class GetLoginInfoModel
     {
@@ -492,11 +483,10 @@ namespace bilibili2
         public string Title { get; set; }
     }
     //热门搜索
-    public class HotModel
+    public class HotViewModel
     {
-        public object list { get; set; }
-        public string keyword { get; set; }
-        public string status { get; set; }
+        public string Keyword { get; set; }
+        public string Status { get; set; }
     }
     //用户追番
     public class GetUserBangumi
@@ -578,50 +568,46 @@ namespace bilibili2
 
     }
     //话题
-    public class TopicModel
+    public class TopicViewModel
     {
-        public int results { get; set; }
-        public object list { get; set; }
-        public string title { get; set; }
-        public string img { get; set; }
-        public string link { get; set; }
+        public string Title { get; set; }
+        public string Img { get; set; }
+        public string Link { get; set; }
     }
     //排行
-    public class RankModel
-    {
-        public object hot_original { get; set; }
-        public object list { get; set; }
-        public string pic { get; set; }
-        public string title { get; set; }
-        public string play { get; set; }
-        public string author { get; set; }
-        public string video_review { get; set; }
-        public string description { get; set; }
-        public string mid { get; set; }
-        public string aid { get; set; }
-        public int num { get; set; }
-    }
+    //public class RankModel
+    //{
+    //    public object hot_original { get; set; }
+    //    public object list { get; set; }
+    //    public string pic { get; set; }
+    //    public string title { get; set; }
+    //    public string play { get; set; }
+    //    public string author { get; set; }
+    //    public string video_review { get; set; }
+    //    public string description { get; set; }
+    //    public string mid { get; set; }
+    //    public string aid { get; set; }
+    //    public int num { get; set; }
+    //}
     //番剧更新表
-    public class BangumiTimeLineModel
+    public class BangumiTimeLineViewModel
     {
-        public object list { get; set; }
-        public string bgmcount { get; set; }
-        public string cover { get; set; }
-        public string lastupdate_at { get; set; }
-        public string title { get; set; }
-        public string square_cover { get; set; }
-        public int weekday { get; set; }
-        public string spid { get; set; }
-        public string season_id { get; set; }
+        public string Bgmcount { get; set; }
+        public string Cover { get; set; }
+        public string LastupdateAt { get; set; }
+        public string Title { get; set; }
+        public string SquareCover { get; set; }
+        public int Weekday { get; set; }
+        public string Spid { get; set; }
+        public string SeasonId { get; set; }
     }
     //番剧索引
-    public class TagModel
+    public class TagViewModel
     {
-        public object result { get; set; }
-        public string cover { get; set; }
-        public int index { get; set; }
-        public int tag_id { get; set; }
-        public string tag_name { get; set; }
+        public string Cover { get; set; }
+        public string Index { get; set; }
+        public string TagId { get; set; }
+        public string TagName { get; set; }
     }
     //番剧信息
     public class BangumiInfoModel

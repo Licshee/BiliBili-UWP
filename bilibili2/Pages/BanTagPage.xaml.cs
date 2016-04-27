@@ -66,8 +66,15 @@ namespace bilibili2.Pages
                 string sign = ApiHelper.GetSign(uri);
                 uri += "&sign=" + sign;
                 string results = await wc.GetResults(new Uri(uri));
-                JObject jo = JObject.Parse(results);
-                List<TagModel> list = JsonConvert.DeserializeObject<List<TagModel>>(jo["result"].ToString());
+                var model = JsonConvert.DeserializeObject<Model.TagRootModel>(results);
+                var list = from item in model.Result
+                           select new TagViewModel
+                           {
+                               Cover = item.Cover,
+                               Index = item.Index,
+                               TagId = item.TagId,
+                               TagName = item.TagName
+                           };
                 gridview_List.ItemsSource = list;
             }
             catch (Exception ex)
@@ -85,7 +92,7 @@ namespace bilibili2.Pages
         //索引点击
         private void gridview_List_ItemClick(object sender, ItemClickEventArgs e)
         {
-            this.Frame.Navigate(typeof(BanByTagPage), new string[] { (e.ClickedItem as TagModel).tag_id.ToString(), (e.ClickedItem as TagModel).tag_name });
+            this.Frame.Navigate(typeof(BanByTagPage), new string[] { (e.ClickedItem as TagViewModel).TagId.ToString(), (e.ClickedItem as TagViewModel).TagName });
         }
 
     }

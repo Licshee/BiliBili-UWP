@@ -42,7 +42,7 @@
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
-                        <Image ToolTipService.ToolTip="{Binding title}" Source="{Binding img}"/>
+                        <Image ToolTipService.ToolTip="{Binding Title}" Source="{Binding Img}"/>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>

@@ -30,10 +30,10 @@
                 <StackPanel.Resources>
                     <DataTemplate x:Key="time_List">
                         <Grid>
-                            <TextBlock Text="{Binding title}"></TextBlock>
+                            <TextBlock Text="{Binding Title}"></TextBlock>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                                 <TextBlock  Text="更新"   Foreground="Gray" ></TextBlock>
-                                <TextBlock  Text="{Binding bgmcount}"   Foreground="Gray" ></TextBlock>
+                                <TextBlock  Text="{Binding Bgmcount}"   Foreground="Gray" ></TextBlock>
                                 <TextBlock  Text="话"   Foreground="Gray" ></TextBlock>
                             </StackPanel>
                         </Grid>

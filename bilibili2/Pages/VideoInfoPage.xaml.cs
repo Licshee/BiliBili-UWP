@@ -414,8 +414,18 @@ namespace bilibili2
                 pr_Load.Visibility = Visibility.Visible;
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://comment.bilibili.com/recommend," + aid));
-                List<RecommendModel> ban = JsonConvert.DeserializeObject<List<RecommendModel>>(results);
-                list_About.ItemsSource = ban;
+                var ban = JsonConvert.DeserializeObject<List<Model.ReCommendModel>>(results);
+                var list = from item in ban
+                           select new RecommendViewModel
+                           {
+                               AuthorName = item.AuthorName,
+                               Click = item.Click,
+                               DmCount = $"{item.DmCount}",
+                               Id = $"{item.Id}",
+                               Pic = item.Pic,
+                               Title = item.Title
+                           };
+                list_About.ItemsSource = list;
             }
             catch (Exception ex)
             {
@@ -431,7 +441,7 @@ namespace bilibili2
         private void ListView_ItemClick(object sender, ItemClickEventArgs e)
         {
             Back = true;
-            this.Frame.Navigate(typeof(VideoInfoPage), (e.ClickedItem as RecommendModel).id);
+            this.Frame.Navigate(typeof(VideoInfoPage), (e.ClickedItem as RecommendViewModel).Id);
             Video_Grid_Info.DataContext = null;
             Video_UP.DataContext = null;
             Video_data.DataContext = null;

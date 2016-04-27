@@ -607,21 +607,21 @@
                                         <RowDefinition/>
                                         <RowDefinition />
                                     </Grid.RowDefinitions>
-                                    <Image Grid.RowSpan="3" Source="{Binding pic}"></Image>
-                                    <TextBlock Grid.Column="1" Margin="5 0" TextTrimming="CharacterEllipsis" MaxLines="2" TextWrapping="Wrap" Text="{Binding title}"></TextBlock>
+                                    <Image Grid.RowSpan="3" Source="{Binding Pic}"></Image>
+                                    <TextBlock Grid.Column="1" Margin="5 0" TextTrimming="CharacterEllipsis" MaxLines="2" TextWrapping="Wrap" Text="{Binding Title}"></TextBlock>
                                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="5 0"  Orientation="Horizontal">
                                         <Image Source="ms-appx:///Assets/Icon/up.png"></Image>
-                                        <TextBlock Foreground="Gray" FontSize="14" Text="{Binding author_name}"></TextBlock>
+                                        <TextBlock Foreground="Gray" FontSize="14" Text="{Binding AuthorName}"></TextBlock>
                                     </StackPanel>
 
                                     <StackPanel Margin="5 0" Orientation="Horizontal" Grid.Column="1" Grid.Row="2" >
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="ms-appx:///Assets/Icon/Play.png"></Image>
-                                            <TextBlock  Foreground="Gray" FontSize="14" Text="{Binding click}"></TextBlock>
+                                            <TextBlock  Foreground="Gray" FontSize="14" Text="{Binding Click}"></TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Margin="10 0">
                                             <Image Source="ms-appx:///Assets/Icon/DM.png"></Image>
-                                            <TextBlock  Foreground="Gray" FontSize="14" Text="{Binding dm_count}"></TextBlock>
+                                            <TextBlock  Foreground="Gray" FontSize="14" Text="{Binding DmCount}"></TextBlock>
                                         </StackPanel>
                                     </StackPanel>
                                 </Grid>

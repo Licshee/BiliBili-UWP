@@ -836,9 +836,13 @@ namespace bilibili2
 
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://www.bilibili.com/search?action=hotword&main_ver=v1"));
-                HotModel model = JsonConvert.DeserializeObject<HotModel>(results);
-                List<HotModel> ban = JsonConvert.DeserializeObject<List<HotModel>>(model.list.ToString());
-
+                var model = JsonConvert.DeserializeObject<Model.HotRootModel>(results);
+                var ban = from item in model.List
+                          select new HotViewModel
+                          {
+                               Keyword=item.Keyword,
+                                Status=item.Status
+                          };
                 list_Hot.ItemsSource = ban;
                 LoadHot = true;
             }
@@ -1152,8 +1156,15 @@ namespace bilibili2
                 pr_Load_Topic.Visibility = Visibility.Visible;
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://www.bilibili.com/index/slideshow.json"));
-                TopicModel model = JsonConvert.DeserializeObject<TopicModel>(results);
-                list_Topic.ItemsSource = JsonConvert.DeserializeObject<List<TopicModel>>(model.list.ToString());
+                var model = JsonConvert.DeserializeObject<TopicRootModel>(results);
+                var list = from item in model.List
+                           select new TopicViewModel
+                           {
+                               Img = item.Img,
+                               Link = item.Link,
+                               Title = item.Title
+                           };
+                list_Topic.ItemsSource = list;
             }
             catch (Exception ex)
             {
@@ -1309,7 +1320,7 @@ namespace bilibili2
         //番剧时间表点击
         private void list_0_ItemClick(object sender, ItemClickEventArgs e)
         {
-            infoFrame.Navigate(typeof(BanInfoPage), (e.ClickedItem as BangumiTimeLineModel).season_id);
+            infoFrame.Navigate(typeof(BanInfoPage), (e.ClickedItem as BangumiTimeLineViewModel).SeasonId);
         }
         int taday = 0;
         public void SetWeekInfo()
@@ -1404,9 +1415,19 @@ namespace bilibili2
                 pr_Load_Ban.Visibility = Visibility.Visible;
                 wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://app.bilibili.com/bangumi/timeline_v2"));
-                BangumiTimeLineModel model = new BangumiTimeLineModel();
-                model = JsonConvert.DeserializeObject<BangumiTimeLineModel>(results);
-                List<BangumiTimeLineModel> ban = JsonConvert.DeserializeObject<List<BangumiTimeLineModel>>(model.list.ToString());
+                var model = JsonConvert.DeserializeObject<Model.BangumiTimeLineRootModel>(results);
+                var ban = from item in model.List
+                          select new BangumiTimeLineViewModel
+                          {
+                              Bgmcount = item.Bgmcount,
+                              Cover = item.Cover,
+                              LastupdateAt = item.LastupdateAt,
+                              SeasonId = $"{item.SeasonId}",
+                              Spid = $"{item.Spid}",
+                              SquareCover = item.SquareCover,
+                              Title = item.Title,
+                              Weekday = item.Weekday
+                          };
                 list_0.Items.Clear();
                 list_1.Items.Clear();
                 list_2.Items.Clear();
@@ -1415,9 +1436,9 @@ namespace bilibili2
                 list_5.Items.Clear();
                 list_6.Items.Clear();
                 list_7.Items.Clear();
-                foreach (BangumiTimeLineModel item in ban)
+                foreach (var item in ban)
                 {
-                    switch (item.weekday)
+                    switch (item.Weekday)
                     {
                         case -1:
                             list_7.Items.Add(item);
@@ -1642,8 +1663,15 @@ namespace bilibili2
                 string sign = ApiHelper.GetSign(uri);
                 uri += "&sign=" + sign;
                 string results = await wc.GetResults(new Uri(uri));
-                JObject jo = JObject.Parse(results);
-                List<TagModel> list = JsonConvert.DeserializeObject<List<TagModel>>(jo["result"].ToString());
+                var model = JsonConvert.DeserializeObject<TagRootModel>(results);
+                var list = from item in model.Result
+                           select new TagViewModel
+                           {
+                               Cover = item.Cover,
+                               Index = item.Index,
+                               TagId = item.TagId,
+                               TagName = item.TagName
+                           };
                 gridview_List.ItemsSource = list;
             }
             catch (Exception ex)
@@ -1674,7 +1702,7 @@ namespace bilibili2
         //索引点击
         private void gridview_List_ItemClick(object sender, ItemClickEventArgs e)
         {
-            infoFrame.Navigate(typeof(BanByTagPage), new string[] { (e.ClickedItem as TagModel).tag_id.ToString(), (e.ClickedItem as TagModel).tag_name });
+            infoFrame.Navigate(typeof(BanByTagPage), new string[] { (e.ClickedItem as TagViewModel).TagId.ToString(), (e.ClickedItem as TagViewModel).TagName });
         }
         //索引表点击
         private void Ban_btn_Tag_Click(object sender, RoutedEventArgs e)
@@ -1928,21 +1956,21 @@ namespace bilibili2
         //话题点击
         private void list_Topic_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (Regex.IsMatch(((TopicModel)e.ClickedItem).link, "/video/av(.*)?[/|+](.*)?"))
+            if (Regex.IsMatch(((TopicViewModel)e.ClickedItem).Link, "/video/av(.*)?[/|+](.*)?"))
             {
-                string a = Regex.Match(((TopicModel)e.ClickedItem).link, "/video/av(.*)?[/|+](.*)?").Groups[1].Value;
+                string a = Regex.Match(((TopicViewModel)e.ClickedItem).Link, "/video/av(.*)?[/|+](.*)?").Groups[1].Value;
                 this.infoFrame.Navigate(typeof(VideoInfoPage), a);
             }
             else
             {
-                if (Regex.IsMatch(((TopicModel)e.ClickedItem).link, @"live.bilibili.com/(.*?)"))
+                if (Regex.IsMatch(((TopicViewModel)e.ClickedItem).Link, @"live.bilibili.com/(.*?)"))
                 {
-                    string a = Regex.Match(((TopicModel)e.ClickedItem).link + "a", "live.bilibili.com/(.*?)a").Groups[1].Value;
+                    string a = Regex.Match(((TopicViewModel)e.ClickedItem).Link + "a", "live.bilibili.com/(.*?)a").Groups[1].Value;
                     // livePlayVideo(a);
                 }
                 else
                 {
-                    this.infoFrame.Navigate(typeof(WebViewPage), ((TopicModel)e.ClickedItem).link);
+                    this.infoFrame.Navigate(typeof(WebViewPage), ((TopicViewModel)e.ClickedItem).Link);
                 }
             }
         }
@@ -1988,7 +2016,7 @@ namespace bilibili2
         //搜索热词点击
         private void list_Hot_ItemClick(object sender, ItemClickEventArgs e)
         {
-            infoFrame.Navigate(typeof(SearchPage), (e.ClickedItem as HotModel).keyword);
+            infoFrame.Navigate(typeof(SearchPage), (e.ClickedItem as HotViewModel).Keyword);
         }
         //dilidili点击
         private void btn_dilidili_Click(object sender, RoutedEventArgs e)

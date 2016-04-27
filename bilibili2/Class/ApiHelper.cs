@@ -86,37 +86,36 @@ namespace bilibili2
                 WebClientClass wc = new WebClientClass();
                 string results =await wc.GetResults(new Uri("https://api.bilibili.com/login?appkey=422fd9d7289a1dd9&platform=wp&pwd=" + Password + "&type=json&userid=" + UserName));
                 //Json解析及数据判断
-                LoginModel model = new LoginModel();
-                model = JsonConvert.DeserializeObject<LoginModel>(results);
-                if (model.code == -627)
+                var model =  JsonConvert.DeserializeObject<Model.LoginModel>(results);
+                if (model.Code == -627)
                 {
                     return "登录失败，密码错误！";
                 }
-                if (model.code == -626)
+                if (model.Code == -626)
                 {
                     return "登录失败，账号不存在！";
                 }
-                if (model.code == -625)
+                if (model.Code == -625)
                 {
                     return "密码错误多次";
                 }
-                if (model.code==-628)
+                if (model.Code==-628)
                 {
                     return "未知错误";
                 }
-                if (model.code == -1)
+                if (model.Code == -1)
                 {
                     return "登录失败，程序注册失败！请联系作者！";
                 }
                 Windows.Web.Http.HttpClient hc = new Windows.Web.Http.HttpClient();
-                if (model.code == 0)
+                if (model.Code == 0)
                 {
-                    access_key = model.access_key;
-                    Windows.Web.Http.HttpResponseMessage hr2 = await hc.GetAsync(new Uri("http://api.bilibili.com/login/sso?&access_key=" + model.access_key + "&appkey=422fd9d7289a1dd9&platform=wp"));
+                    access_key = model.AccessKey;
+                    Windows.Web.Http.HttpResponseMessage hr2 = await hc.GetAsync(new Uri("http://api.bilibili.com/login/sso?&access_key=" + model.AccessKey + "&appkey=422fd9d7289a1dd9&platform=wp"));
                     hr2.EnsureSuccessStatusCode();
                     StorageFolder folder = ApplicationData.Current.LocalFolder;
                     StorageFile file = await folder.CreateFileAsync("us.bili", CreationCollisionOption.OpenIfExists);
-                    await FileIO.WriteTextAsync(file, model.access_key);
+                    await FileIO.WriteTextAsync(file, model.AccessKey);
                 }
                 //看看存不存在Cookie
                 HttpBaseProtocolFilter hb = new HttpBaseProtocolFilter();

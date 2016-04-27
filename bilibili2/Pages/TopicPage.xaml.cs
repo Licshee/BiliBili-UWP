@@ -61,8 +61,15 @@ namespace bilibili2.Pages
                 pr_Load.Visibility = Visibility.Visible;
                 WebClientClass wc = new WebClientClass();
                 string results = await wc.GetResults(new Uri("http://www.bilibili.com/index/slideshow.json"));
-                TopicModel model = JsonConvert.DeserializeObject<TopicModel>(results);
-                list_Topic.ItemsSource = JsonConvert.DeserializeObject<List<TopicModel>>(model.list.ToString());
+                var model = JsonConvert.DeserializeObject<Model.TopicRootModel>(results);
+                var list = from item in model.List
+                           select new TopicViewModel
+                           {
+                               Img = item.Img,
+                               Link = item.Link,
+                               Title = item.Title
+                           };
+                list_Topic.ItemsSource = list;
             }
             catch (Exception ex)
             {
@@ -76,21 +83,21 @@ namespace bilibili2.Pages
 
         private void list_Topic_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (Regex.IsMatch(((TopicModel)e.ClickedItem).link, "/video/av(.*)?[/|+](.*)?"))
+            if (Regex.IsMatch(((TopicViewModel)e.ClickedItem).Link, "/video/av(.*)?[/|+](.*)?"))
             {
-                string a = Regex.Match(((TopicModel)e.ClickedItem).link, "/video/av(.*)?[/|+](.*)?").Groups[1].Value;
+                string a = Regex.Match(((TopicViewModel)e.ClickedItem).Link, "/video/av(.*)?[/|+](.*)?").Groups[1].Value;
                 this.Frame.Navigate(typeof(VideoInfoPage), a);
             }
             else
             {
-                if (Regex.IsMatch(((TopicModel)e.ClickedItem).link, @"live.bilibili.com/(.*?)"))
+                if (Regex.IsMatch(((TopicViewModel)e.ClickedItem).Link, @"live.bilibili.com/(.*?)"))
                 {
-                    string a = Regex.Match(((TopicModel)e.ClickedItem).link + "a", "live.bilibili.com/(.*?)a").Groups[1].Value;
+                    string a = Regex.Match(((TopicViewModel)e.ClickedItem).Link + "a", "live.bilibili.com/(.*?)a").Groups[1].Value;
                     // livePlayVideo(a);
                 }
                 else
                 {
-                    this.Frame.Navigate(typeof(WebViewPage), ((TopicModel)e.ClickedItem).link);
+                    this.Frame.Navigate(typeof(WebViewPage), ((TopicViewModel)e.ClickedItem).Link);
                 }
             }
         }
